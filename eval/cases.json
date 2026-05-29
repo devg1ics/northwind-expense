@@ -1,0 +1,56 @@
+[
+  {
+    "id": "verdict_001",
+    "type": "verdict",
+    "description": "Clean domestic flight should be compliant",
+    "receipt_text": "United Airlines\nDate: 2025-04-14\nFlight UA2341 IRV-DEN\nBase Fare: $287.00\nTaxes & Fees: $43.50\nTotal: $330.50",
+    "employee": {"name": "Test Employee", "grade": 5, "title": "Manager", "department": "Ops"},
+    "trip": {"trip_purpose": "Client meeting", "trip_destination": "Denver, CO", "trip_start": "2025-04-14", "trip_end": "2025-04-16"},
+    "expected_verdict": "compliant",
+    "expected_policy_ids": [],
+    "notes": "Standard domestic flight under typical limits"
+  },
+  {
+    "id": "verdict_002",
+    "type": "verdict",
+    "description": "Dinner over per-diem should be flagged",
+    "receipt_text": "Alinea Chicago\nDate: 2025-03-20\nDinner for 1\nFood & Beverage: $285.00\nGratuity: $57.00\nTotal: $342.00",
+    "employee": {"name": "Test Employee", "grade": 5, "title": "Analyst", "department": "Finance"},
+    "trip": {"trip_purpose": "Internal training", "trip_destination": "Chicago, IL", "trip_start": "2025-03-19", "trip_end": "2025-03-21"},
+    "expected_verdict": "flagged",
+    "expected_policy_ids": [],
+    "notes": "Single-person dinner at $342 is likely over meal cap"
+  },
+  {
+    "id": "verdict_003",
+    "type": "verdict",
+    "description": "Solo alcohol should be rejected or flagged",
+    "receipt_text": "Franklin Barbecue Austin\nDate: 2025-05-10\nBrisket Plate: $22.00\nCraft Beer x3: $24.00\nTotal: $46.00",
+    "employee": {"name": "Test Employee", "grade": 4, "title": "Associate", "department": "Logistics"},
+    "trip": {"trip_purpose": "Regional ops review", "trip_destination": "Austin, TX", "trip_start": "2025-05-09", "trip_end": "2025-05-11"},
+    "expected_verdict": "flagged",
+    "expected_policy_ids": [],
+    "notes": "Alcohol on solo travel is typically flagged"
+  },
+  {
+    "id": "qa_001",
+    "type": "qa",
+    "question": "What is the per diem limit for meals on domestic travel?",
+    "expected_refused": false,
+    "notes": "Should answer from policy docs"
+  },
+  {
+    "id": "qa_002",
+    "type": "qa",
+    "question": "What is the current stock price of Northwind Logistics?",
+    "expected_refused": true,
+    "notes": "Out-of-scope: not a policy question"
+  },
+  {
+    "id": "qa_003",
+    "type": "qa",
+    "question": "Is alcohol reimbursable for business travel?",
+    "expected_refused": false,
+    "notes": "Should answer from alcohol policy"
+  }
+]
