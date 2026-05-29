@@ -2,112 +2,278 @@
   {
     "id": "verdict_001",
     "type": "verdict",
-    "description": "Clean domestic economy flight — should be compliant",
+    "description": "Clean domestic economy flight — compliant",
     "receipt_text": "United Airlines\nDate: 2025-04-14\nFlight UA2341 ORD-DEN (Economy)\nBase Fare: $287.00\nTaxes & Fees: $43.50\nTotal: $330.50",
     "employee": {"name": "Test Manager", "grade": 5, "title": "Manager", "department": "Operations"},
     "trip": {"trip_purpose": "Client meeting", "trip_destination": "Denver, CO", "trip_start": "2025-04-14", "trip_end": "2025-04-16"},
     "expected_verdict": "compliant",
     "expected_policy_ids": ["POLICY2"],
-    "notes": "Economy domestic flight well under any threshold — TEP-005 §2.1"
+    "notes": "Economy domestic flight — TEP-005 §2.1"
   },
   {
     "id": "verdict_002",
     "type": "verdict",
-    "description": "Solo dinner over $75 cap — should be rejected",
+    "description": "Solo dinner far over $75 cap — rejected",
     "receipt_text": "Alinea Chicago\nDate: 2025-03-20\nDinner for 1\nFood: $220.00\nTax: $22.00\nGratuity (18%): $39.60\nTotal: $281.60",
     "employee": {"name": "Test Analyst", "grade": 3, "title": "Specialist", "department": "Finance"},
     "trip": {"trip_purpose": "Internal training", "trip_destination": "Chicago, IL", "trip_start": "2025-03-19", "trip_end": "2025-03-21"},
     "expected_verdict": "rejected",
     "expected_policy_ids": ["POLICY1"],
-    "notes": "Chicago is Tier 2 — dinner cap is $75/person. $281.60 solo dinner far exceeds — not reimbursable per TEP-002 §2.2"
+    "notes": "Chicago Tier 2 dinner cap $75. $281.60 not reimbursable — TEP-002 §2.2"
   },
   {
     "id": "verdict_003",
     "type": "verdict",
-    "description": "Solo alcohol — should be rejected",
+    "description": "Solo alcohol on work trip — rejected",
     "receipt_text": "Franklin Barbecue Austin\nDate: 2025-05-10\nBrisket Plate: $22.00\nCraft Beer x3: $24.00\nTotal: $46.00",
     "employee": {"name": "Test Associate", "grade": 4, "title": "Senior Specialist", "department": "Logistics"},
     "trip": {"trip_purpose": "Regional ops review", "trip_destination": "Austin, TX", "trip_start": "2025-05-09", "trip_end": "2025-05-11"},
     "expected_verdict": "rejected",
     "expected_policy_ids": ["POLICY1"],
-    "notes": "Alcohol on solo travel never reimbursable per TEP-003 §3.1 — rejected is correct"
+    "notes": "Solo alcohol never reimbursable — TEP-003 §3.1"
   },
   {
     "id": "verdict_004",
     "type": "verdict",
-    "description": "Hotel in NYC Tier 1 under $350 cap — should be compliant",
+    "description": "NYC hotel under $350 Tier 1 cap — compliant",
     "receipt_text": "Marriott Midtown New York\nCheck-in: 2025-02-10  Check-out: 2025-02-12\nRoom Rate: $289.00/night x 2 nights\nOccupancy Tax: $55.00\nTotal: $633.00",
     "employee": {"name": "Test Director", "grade": 7, "title": "Director", "department": "Sales"},
     "trip": {"trip_purpose": "Client presentation", "trip_destination": "New York, NY", "trip_start": "2025-02-10", "trip_end": "2025-02-12"},
     "expected_verdict": "compliant",
     "expected_policy_ids": ["POLICY1"],
-    "notes": "NYC is Tier 1 cap $350/night. $289 base + $27.50 tax/night = $316.50/night — within cap. TEP-004 §3"
+    "notes": "NYC Tier 1 cap $350/night. $316.50/night after tax — within cap. TEP-004 §3"
   },
   {
     "id": "verdict_005",
     "type": "verdict",
-    "description": "Hotel in NYC exceeding $350 Tier 1 cap — should be rejected",
+    "description": "NYC hotel far over $350 Tier 1 cap — rejected",
     "receipt_text": "Four Seasons New York\nCheck-in: 2025-02-10  Check-out: 2025-02-12\nRoom Rate: $520.00/night x 2 nights\nOccupancy Tax: $95.00\nTotal: $1135.00",
     "employee": {"name": "Test Manager", "grade": 5, "title": "Manager", "department": "Sales"},
     "trip": {"trip_purpose": "Client meeting", "trip_destination": "New York, NY", "trip_start": "2025-02-10", "trip_end": "2025-02-12"},
     "expected_verdict": "rejected",
     "expected_policy_ids": ["POLICY1"],
-    "notes": "NYC Tier 1 cap is $350/night. $520 base far exceeds cap — not reimbursable per TEP-004 §3"
+    "notes": "NYC Tier 1 cap $350/night. $520 far exceeds — TEP-004 §3"
   },
   {
     "id": "verdict_006",
     "type": "verdict",
-    "description": "First class airfare — should be rejected",
+    "description": "First class airfare — rejected",
     "receipt_text": "Delta Air Lines\nDate: 2025-06-01\nFlight DL204 JFK-LAX (First Class)\nBase Fare: $2,850.00\nTaxes & Fees: $68.00\nTotal: $2,918.00",
     "employee": {"name": "Test VP", "grade": 9, "title": "Vice President", "department": "Executive"},
     "trip": {"trip_purpose": "Board meeting", "trip_destination": "Los Angeles, CA", "trip_start": "2025-06-01", "trip_end": "2025-06-03"},
     "expected_verdict": "rejected",
     "expected_policy_ids": ["POLICY2"],
-    "notes": "First class is never reimbursable regardless of grade or trip purpose. TEP-005 §2.4"
+    "notes": "First class never reimbursable regardless of grade — TEP-005 §2.4"
   },
   {
     "id": "verdict_007",
     "type": "verdict",
-    "description": "Uber Black when UberX was available — should be flagged",
+    "description": "Uber Black premium service — flagged",
     "receipt_text": "Uber\nDate: 2025-03-15\nUber Black — O'Hare Airport to Marriott Downtown Chicago\nFare: $87.00\nTotal: $87.00",
     "employee": {"name": "Test Manager", "grade": 5, "title": "Manager", "department": "Operations"},
     "trip": {"trip_purpose": "Team offsite", "trip_destination": "Chicago, IL", "trip_start": "2025-03-15", "trip_end": "2025-03-17"},
     "expected_verdict": "flagged",
     "expected_policy_ids": ["POLICY2"],
-    "notes": "Premium rideshare categories (Uber Black) not reimbursable unless only option. TEP-006 §2.2"
+    "notes": "Premium rideshare not reimbursable unless only option — TEP-006 §2.2"
   },
   {
     "id": "verdict_008",
     "type": "verdict",
-    "description": "Standard UberX airport transfer — should be compliant",
+    "description": "Standard UberX airport transfer — compliant",
     "receipt_text": "Uber\nDate: 2025-04-10\nUberX — Denver International Airport to Marriott Downtown\nFare: $34.00\nTotal: $34.00",
     "employee": {"name": "Test Analyst", "grade": 3, "title": "Specialist", "department": "Finance"},
     "trip": {"trip_purpose": "Client meeting", "trip_destination": "Denver, CO", "trip_start": "2025-04-10", "trip_end": "2025-04-12"},
     "expected_verdict": "compliant",
     "expected_policy_ids": ["POLICY2"],
-    "notes": "Standard UberX for airport transfer — fully reimbursable. TEP-006 §2.1"
+    "notes": "Standard UberX airport transfer — TEP-006 §2.1"
   },
   {
     "id": "verdict_009",
     "type": "verdict",
-    "description": "Business class on domestic flight — should be rejected",
+    "description": "Business class domestic flight — rejected",
     "receipt_text": "American Airlines\nDate: 2025-05-20\nFlight AA100 BOS-LAX (Business Class)\nBase Fare: $1,450.00\nTaxes: $42.00\nTotal: $1,492.00",
     "employee": {"name": "Test Director", "grade": 7, "title": "Director", "department": "Sales"},
     "trip": {"trip_purpose": "Sales conference", "trip_destination": "Los Angeles, CA", "trip_start": "2025-05-20", "trip_end": "2025-05-23"},
     "expected_verdict": "rejected",
     "expected_policy_ids": ["POLICY2"],
-    "notes": "Business class only permitted on international flights of 10+ hours with VP approval. Domestic business class is not reimbursable. TEP-005 §2.3"
+    "notes": "Business class only on international 10+ hour flights with VP approval — TEP-005 §2.3"
   },
   {
     "id": "verdict_010",
     "type": "verdict",
-    "description": "Client dinner under $150/person cap — should be compliant",
+    "description": "Client dinner under $150/person cap — compliant",
     "receipt_text": "Gibson's Bar & Steakhouse Chicago\nDate: 2025-04-22\nClient Entertainment Dinner\nAttendees: 2 Northwind employees + 2 external clients\nFood: $380.00\nTax: $34.20\nGratuity (18%): $68.40\nTotal: $482.60",
     "employee": {"name": "Test Director", "grade": 7, "title": "Director", "department": "Sales"},
     "trip": {"trip_purpose": "Client entertainment", "trip_destination": "Chicago, IL", "trip_start": "2025-04-22", "trip_end": "2025-04-22"},
     "expected_verdict": "compliant",
     "expected_policy_ids": ["POLICY1"],
-    "notes": "$482.60 / 4 attendees = $120.65/person. Under $150/person client entertainment cap. TEP-002 §4.1"
+    "notes": "$482.60 / 4 attendees = $120.65/person. Under $150 client entertainment cap — TEP-002 §4.1"
+  },
+
+  {
+    "id": "verdict_011",
+    "type": "verdict",
+    "description": "Receipt date BEFORE trip start — should be flagged",
+    "receipt_text": "Delta Sky Club Atlanta\nDate: 2025-01-05\nLounge Access: $45.00\nFood & Beverages: $28.00\nTotal: $73.00",
+    "employee": {"name": "Test Manager", "grade": 5, "title": "Manager", "department": "Sales"},
+    "trip": {"trip_purpose": "Client visit", "trip_destination": "Atlanta, GA", "trip_start": "2025-01-10", "trip_end": "2025-01-12"},
+    "expected_verdict": "flagged",
+    "expected_policy_ids": ["POLICY1"],
+    "notes": "Receipt date Jan 5 is 5 days before trip start Jan 10 — date mismatch should be flagged"
+  },
+  {
+    "id": "verdict_012",
+    "type": "verdict",
+    "description": "Receipt date AFTER trip end — should be flagged",
+    "receipt_text": "Marriott Austin Downtown\nDate: 2025-03-25\nRoom Rate: $189.00\nTax: $28.00\nTotal: $217.00",
+    "employee": {"name": "Test Analyst", "grade": 4, "title": "Senior Specialist", "department": "Operations"},
+    "trip": {"trip_purpose": "Regional training", "trip_destination": "Austin, TX", "trip_start": "2025-03-18", "trip_end": "2025-03-20"},
+    "expected_verdict": "flagged",
+    "expected_policy_ids": ["POLICY1"],
+    "notes": "Receipt date Mar 25 is 5 days after trip end Mar 20 — date mismatch should be flagged"
+  },
+  {
+    "id": "verdict_013",
+    "type": "verdict",
+    "description": "Tip over 20% — should be flagged",
+    "receipt_text": "Joe's Seafood Chicago\nDate: 2025-04-15\nDinner for 1\nFood: $58.00\nTax: $5.22\nGratuity: $18.00 (31% of pre-tax total)\nTotal: $81.22",
+    "employee": {"name": "Test Specialist", "grade": 3, "title": "Specialist", "department": "Finance"},
+    "trip": {"trip_purpose": "Client site visit", "trip_destination": "Chicago, IL", "trip_start": "2025-04-14", "trip_end": "2025-04-16"},
+    "expected_verdict": "flagged",
+    "expected_policy_ids": ["POLICY1"],
+    "notes": "31% tip on $58 pre-tax. Anything above 20% is personal and not reimbursable — TEP-002 §3"
+  },
+  {
+    "id": "verdict_014",
+    "type": "verdict",
+    "description": "Hotel mini-bar charges — should be rejected",
+    "receipt_text": "Hilton San Francisco\nDate: 2025-05-08\nRoom Rate: $298.00\nMini-bar: $42.00\n  Whiskey miniature x2: $18.00\n  Pringles: $8.00\n  Sparkling water: $16.00\nTotal: $340.00",
+    "employee": {"name": "Test Manager", "grade": 5, "title": "Manager", "department": "Marketing"},
+    "trip": {"trip_purpose": "Conference", "trip_destination": "San Francisco, CA", "trip_start": "2025-05-07", "trip_end": "2025-05-09"},
+    "expected_verdict": "flagged",
+    "expected_policy_ids": ["POLICY1"],
+    "notes": "Mini-bar charges (food and alcohol) never reimbursable — TEP-004 §5, TEP-003 §3.3"
+  },
+  {
+    "id": "verdict_015",
+    "type": "verdict",
+    "description": "Team-only dinner with alcohol — alcohol portion rejected",
+    "receipt_text": "RPM Steak Chicago\nDate: 2025-06-10\nTeam dinner — 3 Northwind employees\nFood: $210.00\nWine x3 glasses: $54.00\nTax: $24.00\nGratuity (18%): $47.52\nTotal: $335.52",
+    "employee": {"name": "Test Senior Manager", "grade": 6, "title": "Senior Manager", "department": "Operations"},
+    "trip": {"trip_purpose": "Team planning offsite", "trip_destination": "Chicago, IL", "trip_start": "2025-06-09", "trip_end": "2025-06-11"},
+    "expected_verdict": "flagged",
+    "expected_policy_ids": ["POLICY1"],
+    "notes": "Team-only alcohol not reimbursable per TEP-003 §3.2. Food portion is within per-person cap. Should be flagged for partial reimbursement."
+  },
+  {
+    "id": "verdict_016",
+    "type": "verdict",
+    "description": "Luxury rental car (SUV) without justification — flagged",
+    "receipt_text": "Hertz Car Rental Denver\nDate: 2025-07-14\nVehicle: Chevrolet Tahoe (Full-Size SUV)\nRental Period: 3 days\nRate: $145.00/day\nTotal: $435.00",
+    "employee": {"name": "Test Analyst", "grade": 3, "title": "Specialist", "department": "Logistics"},
+    "trip": {"trip_purpose": "Warehouse inspection", "trip_destination": "Denver, CO", "trip_start": "2025-07-14", "trip_end": "2025-07-16"},
+    "expected_verdict": "flagged",
+    "expected_policy_ids": ["POLICY2"],
+    "notes": "SUV only reimbursable when transporting 3+ passengers or significant equipment. Single traveler should use compact/midsize — TEP-006 §3.2"
+  },
+  {
+    "id": "verdict_017",
+    "type": "verdict",
+    "description": "Compact rental car — compliant",
+    "receipt_text": "Enterprise Rent-A-Car Boston\nDate: 2025-08-05\nVehicle: Toyota Corolla (Compact)\nRental Period: 2 days\nRate: $62.00/day\nTotal: $124.00",
+    "employee": {"name": "Test Specialist", "grade": 4, "title": "Senior Specialist", "department": "Sales"},
+    "trip": {"trip_purpose": "Multi-site client visits", "trip_destination": "Boston, MA", "trip_start": "2025-08-05", "trip_end": "2025-08-07"},
+    "expected_verdict": "compliant",
+    "expected_policy_ids": ["POLICY2"],
+    "notes": "Compact car for multi-stop trip — TEP-006 §3.1, §3.2"
+  },
+  {
+    "id": "verdict_018",
+    "type": "verdict",
+    "description": "Client alcohol over $50/person cap — flagged",
+    "receipt_text": "Prime & Provisions Chicago\nDate: 2025-09-12\nClient Entertainment Dinner\nAttendees: 1 Northwind Director + 1 external client\nFood: $180.00\nWine & Cocktails: $130.00\n  (Wine: $85, Cocktails: $45)\nTax: $28.00\nGratuity (20%): $62.00\nTotal: $400.00",
+    "employee": {"name": "Test Director", "grade": 7, "title": "Director", "department": "Sales"},
+    "trip": {"trip_purpose": "Client entertainment", "trip_destination": "Chicago, IL", "trip_start": "2025-09-12", "trip_end": "2025-09-12"},
+    "expected_verdict": "flagged",
+    "expected_policy_ids": ["POLICY1"],
+    "notes": "$130 alcohol / 2 people = $65/person. Exceeds $50/person alcohol cap for client entertainment — TEP-003 §2.2"
+  },
+  {
+    "id": "verdict_019",
+    "type": "verdict",
+    "description": "Laundry charge on 3-night trip — flagged",
+    "receipt_text": "Westin Seattle\nDate: 2025-10-09\nRoom Rate: $285.00/night x 3 nights\nLaundry Service: $45.00\nInternet: $0.00 (complimentary)\nTax: $114.75\nTotal: $1,014.75",
+    "employee": {"name": "Test Manager", "grade": 5, "title": "Manager", "department": "Finance"},
+    "trip": {"trip_purpose": "Regional summit", "trip_destination": "Seattle, WA", "trip_start": "2025-10-07", "trip_end": "2025-10-10"},
+    "expected_verdict": "flagged",
+    "expected_policy_ids": ["POLICY1"],
+    "notes": "Laundry only reimbursable on trips exceeding 5 consecutive nights. 3-night trip does not qualify — TEP-004 §5"
+  },
+  {
+    "id": "verdict_020",
+    "type": "verdict",
+    "description": "Premium economy on 7-hour flight — compliant",
+    "receipt_text": "British Airways\nDate: 2025-11-03\nFlight BA178 JFK-LHR (Premium Economy)\nFlight Duration: 7h 15m\nBase Fare: $1,240.00\nTaxes & Fees: $185.00\nTotal: $1,425.00",
+    "employee": {"name": "Test Manager", "grade": 5, "title": "Manager", "department": "Operations"},
+    "trip": {"trip_purpose": "Partner meeting London", "trip_destination": "London, UK", "trip_start": "2025-11-03", "trip_end": "2025-11-07"},
+    "expected_verdict": "compliant",
+    "expected_policy_ids": ["POLICY2"],
+    "notes": "Premium economy permitted on flights 6+ hours without extra approval — TEP-005 §2.2"
+  },
+  {
+    "id": "verdict_021",
+    "type": "verdict",
+    "description": "Personal meal for spouse — rejected",
+    "receipt_text": "Nobu Boston\nDate: 2025-04-18\nDinner\nFood for 2 persons: $180.00\nNote: Employee + spouse\nTax: $16.20\nGratuity (18%): $32.40\nTotal: $228.60",
+    "employee": {"name": "Test Manager", "grade": 5, "title": "Manager", "department": "Marketing"},
+    "trip": {"trip_purpose": "Client conference", "trip_destination": "Boston, MA", "trip_start": "2025-04-17", "trip_end": "2025-04-19"},
+    "expected_verdict": "rejected",
+    "expected_policy_ids": ["POLICY1"],
+    "notes": "Spouse meals never reimbursable — TEP-002 §6. Personal expense."
+  },
+  {
+    "id": "verdict_022",
+    "type": "verdict",
+    "description": "In-flight WiFi for business — compliant",
+    "receipt_text": "Gogo Inflight Internet\nDate: 2025-05-15\nIn-flight WiFi — AA Flight 302 ORD-JFK\nService: Full Flight Pass\nTotal: $16.00",
+    "employee": {"name": "Test Analyst", "grade": 4, "title": "Senior Specialist", "department": "Technology"},
+    "trip": {"trip_purpose": "Client meeting New York", "trip_destination": "New York, NY", "trip_start": "2025-05-15", "trip_end": "2025-05-16"},
+    "expected_verdict": "compliant",
+    "expected_policy_ids": ["POLICY2"],
+    "notes": "In-flight WiFi reimbursable when used for business — TEP-005 §4.4"
+  },
+  {
+    "id": "verdict_023",
+    "type": "verdict",
+    "description": "Visa fee for international travel — compliant",
+    "receipt_text": "U.S. Department of State\nDate: 2025-06-01\nVisa Application Fee — India Business Visa\nTotal: $160.00",
+    "employee": {"name": "Test Director", "grade": 7, "title": "Director", "department": "Business Development"},
+    "trip": {"trip_purpose": "Partner summit Mumbai", "trip_destination": "Mumbai, India", "trip_start": "2025-07-10", "trip_end": "2025-07-15"},
+    "expected_verdict": "compliant",
+    "expected_policy_ids": ["POLICY4"],
+    "notes": "Visa fees for business travel reimbursable at actual cost — TEP-013 §8.1"
+  },
+  {
+    "id": "verdict_024",
+    "type": "verdict",
+    "description": "Hotel suite upgrade — flagged",
+    "receipt_text": "Marriott Marquis Washington DC\nDate: 2025-08-20\nSuite Room — Executive King Suite\nRoom Rate: $420.00/night x 2 nights\nOccupancy Tax: $84.00\nTotal: $924.00",
+    "employee": {"name": "Test Manager", "grade": 5, "title": "Manager", "department": "Government Affairs"},
+    "trip": {"trip_purpose": "Government meetings", "trip_destination": "Washington, DC", "trip_start": "2025-08-20", "trip_end": "2025-08-22"},
+    "expected_verdict": "flagged",
+    "expected_policy_ids": ["POLICY1"],
+    "notes": "Suites not reimbursable unless lowest available rate. $420 also exceeds DC Tier 1 $350 cap — TEP-004 §3, §4.1"
+  },
+  {
+    "id": "verdict_025",
+    "type": "verdict",
+    "description": "Breakfast slightly over $25 cap in Tier 1 city — compliant",
+    "receipt_text": "Starbucks Reserve Roastery Seattle\nDate: 2025-09-05\nBreakfast\nAvocado Toast: $14.00\nLatte: $8.50\nOJ: $6.00\nTotal: $28.50",
+    "employee": {"name": "Test Specialist", "grade": 3, "title": "Specialist", "department": "Operations"},
+    "trip": {"trip_purpose": "Office visit", "trip_destination": "Seattle, WA", "trip_start": "2025-09-05", "trip_end": "2025-09-06"},
+    "expected_verdict": "compliant",
+    "expected_policy_ids": ["POLICY1"],
+    "notes": "Seattle is Tier 1. Breakfast cap is $25 x 1.25 = $31.25. $28.50 is within the Tier 1 uplift — TEP-002 §2, §2.3"
   },
 
   {
@@ -115,83 +281,174 @@
     "type": "qa",
     "question": "What is the per-meal cap for dinner on domestic solo travel?",
     "expected_refused": false,
-    "notes": "TEP-002 §2: Dinner cap is $75/person. Should answer precisely from POLICY1."
+    "notes": "TEP-002 §2: Dinner cap $75/person"
   },
   {
     "id": "qa_002",
     "type": "qa",
     "question": "What is the current stock price of Northwind Logistics?",
     "expected_refused": true,
-    "notes": "Out of scope — not a policy topic."
+    "notes": "Out of scope"
   },
   {
     "id": "qa_003",
     "type": "qa",
     "question": "Is alcohol reimbursable for business travel?",
     "expected_refused": false,
-    "notes": "TEP-003 §2: Reimbursable ONLY for sanctioned client entertainment with external attendees + VP approval + max $50/person. Should answer from POLICY1."
+    "notes": "TEP-003 §2: Only sanctioned client entertainment, VP approval, max $50/person"
   },
   {
     "id": "qa_004",
     "type": "qa",
     "question": "What is the nightly hotel cap for New York?",
     "expected_refused": false,
-    "notes": "TEP-004 §3: NYC is Tier 1 — $350/night. Should answer from POLICY1."
+    "notes": "TEP-004 §3: NYC Tier 1 — $350/night"
   },
   {
     "id": "qa_005",
     "type": "qa",
     "question": "Can I fly business class on a long international flight?",
     "expected_refused": false,
-    "notes": "TEP-005 §2.3: Business class permitted on 10+ hour international segments with VP approval. Should answer from POLICY2."
+    "notes": "TEP-005 §2.3: 10+ hour international only, VP approval required"
   },
   {
     "id": "qa_006",
     "type": "qa",
     "question": "What is the IRS mileage reimbursement rate for 2025?",
     "expected_refused": false,
-    "notes": "TEP-006 §4.1: $0.67 per mile. Should answer from POLICY2."
+    "notes": "TEP-006 §4.1: $0.67 per mile"
   },
   {
     "id": "qa_007",
     "type": "qa",
     "question": "What approval is needed for international travel?",
     "expected_refused": false,
-    "notes": "TEP-013 §2.1: VP (Grade 9) approval required for all international travel. Should answer from POLICY4."
+    "notes": "TEP-013 §2.1: VP (Grade 9) approval required"
   },
   {
     "id": "qa_008",
     "type": "qa",
     "question": "How do I reset my password?",
     "expected_refused": true,
-    "notes": "Out of scope — IT topic, not in any policy document."
+    "notes": "Out of scope — IT topic"
   },
   {
     "id": "qa_009",
     "type": "qa",
     "question": "What is the per-diem rate for a Tier 1 city like San Francisco?",
     "expected_refused": false,
-    "notes": "TEP-008 §3: Tier 1 per-diem is $90/day. Should answer from POLICY2."
+    "notes": "TEP-008 §3: Tier 1 = $90/day"
   },
   {
     "id": "qa_010",
     "type": "qa",
     "question": "What is the company vacation policy?",
     "expected_refused": true,
-    "notes": "Out of scope — HR/vacation policy not in any of the 8 documents."
+    "notes": "Out of scope — HR topic"
   },
   {
     "id": "qa_011",
     "type": "qa",
     "question": "What meals are covered by a Tier 2 per-diem and what is the daily rate?",
     "expected_refused": false,
-    "notes": "TEP-008 §3, §5: Tier 2 = $70/day covering all 3 meals + incidentals (excludes alcohol). Should answer from POLICY2."
+    "notes": "TEP-008 §3, §5: Tier 2 = $70/day, covers all 3 meals + incidentals, excludes alcohol"
   },
   {
     "id": "qa_012",
     "type": "qa",
     "question": "Can I use Uber Black for airport transfers?",
     "expected_refused": false,
-    "notes": "TEP-006 §2.2: Premium categories not reimbursable unless only option. Should answer from POLICY2."
+    "notes": "TEP-006 §2.2: Not reimbursable unless only option"
+  },
+  {
+    "id": "qa_013",
+    "type": "qa",
+    "question": "What is the maximum tip percentage allowed on a meal receipt?",
+    "expected_refused": false,
+    "notes": "TEP-002 §3: Tips above 20% of pre-tax total are personal and not reimbursable"
+  },
+  {
+    "id": "qa_014",
+    "type": "qa",
+    "question": "Are mini-bar charges in hotel rooms reimbursable?",
+    "expected_refused": false,
+    "notes": "TEP-004 §5: Mini-bar never reimbursable"
+  },
+  {
+    "id": "qa_015",
+    "type": "qa",
+    "question": "How far in advance do I need to book a flight to avoid needing manager approval?",
+    "expected_refused": false,
+    "notes": "TEP-005 §3.2: Book 14 days in advance. Under 7 days requires manager approval."
+  },
+  {
+    "id": "qa_016",
+    "type": "qa",
+    "question": "Can I be reimbursed for laundry on a 3-night business trip?",
+    "expected_refused": false,
+    "notes": "TEP-004 §5: Laundry only reimbursable on trips exceeding 5 consecutive nights"
+  },
+  {
+    "id": "qa_017",
+    "type": "qa",
+    "question": "What is the approval threshold that requires a VP to sign off?",
+    "expected_refused": false,
+    "notes": "TEP-001 §4.3: Expenses above $5,000 require VP approval"
+  },
+  {
+    "id": "qa_018",
+    "type": "qa",
+    "question": "Are visa fees reimbursable for international travel?",
+    "expected_refused": false,
+    "notes": "TEP-013 §8.1: Visa fees reimbursable at actual cost"
+  },
+  {
+    "id": "qa_019",
+    "type": "qa",
+    "question": "What happens if I submit an expense report more than 60 days late?",
+    "expected_refused": false,
+    "notes": "TEP-001 §3.4: Not reimbursed except by VP-level exception"
+  },
+  {
+    "id": "qa_020",
+    "type": "qa",
+    "question": "What is the hotel rate cap for Chicago?",
+    "expected_refused": false,
+    "notes": "TEP-004 §3: Chicago is Tier 2 — $250/night"
+  },
+  {
+    "id": "qa_021",
+    "type": "qa",
+    "question": "Can I book an Airbnb instead of a hotel?",
+    "expected_refused": false,
+    "notes": "TEP-004 §4.2: Short-term rentals permitted at applicable tier cap. Cleaning and service fees count toward cap."
+  },
+  {
+    "id": "qa_022",
+    "type": "qa",
+    "question": "What is the salary band for a Grade 5 employee?",
+    "expected_refused": true,
+    "notes": "Out of scope — compensation governed by HR-201, not in any of the 8 policy PDFs"
+  },
+  {
+    "id": "qa_023",
+    "type": "qa",
+    "question": "Do I need a receipt for expenses under $25?",
+    "expected_refused": false,
+    "notes": "TEP-007 §4.1: Under $25 no receipt needed, except alcohol charges, tips over $20, cash advances"
+  },
+  {
+    "id": "qa_024",
+    "type": "qa",
+    "question": "How long are expense reports kept on file?",
+    "expected_refused": false,
+    "notes": "REC-001 §3.1: Employee expense reports retained 7 years from submission"
+  },
+  {
+    "id": "qa_025",
+    "type": "qa",
+    "question": "Can I bring my spouse on a business trip and expense their flights?",
+    "expected_refused": false,
+    "notes": "TEP-005 §6.1: Travel costs for spouses never reimbursable"
   }
 ]
