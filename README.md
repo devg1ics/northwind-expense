@@ -2,7 +2,7 @@
 
 An end-to-end expense compliance platform: upload a receipt (PDF/image/text), get a structured verdict with policy citations in seconds. Built with FastAPI, React, SQLite, and Claude.
 
-**Live deployment:** https://northwind-production.up.railway.app
+**Live deployment:** https://northwind-expense-production-128d.up.railway.app/
 
 ---
 
