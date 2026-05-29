@@ -8,8 +8,10 @@ load_dotenv()
 DB_PATH = os.getenv("DB_PATH", "/data/northwind.db")
 DATABASE_URL = os.getenv("DATABASE_URL", f"sqlite:///{DB_PATH}")
 
-# Ensure the directory for the DB file exists
-os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
+# Ensure the directory for the DB file exists (guard against empty dirname)
+_db_dir = os.path.dirname(DB_PATH)
+if _db_dir:
+    os.makedirs(_db_dir, exist_ok=True)
 
 engine = create_engine(
     DATABASE_URL,

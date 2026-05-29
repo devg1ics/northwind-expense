@@ -124,10 +124,17 @@ async def upload_receipt(sub_id: int, file: UploadFile = File(...), db: Session 
     if not sub:
         raise HTTPException(status_code=404, detail="Submission not found")
 
+    # Validate file type
+    allowed_extensions = {".pdf", ".jpg", ".jpeg", ".png", ".txt"}
+    suffix = Path(file.filename or "").suffix.lower()
+    if suffix not in allowed_extensions:
+        raise HTTPException(status_code=400, detail=f"Unsupported file type '{suffix}'. Allowed: PDF, JPG, PNG, TXT.")
+
     emp = sub.employee
     upload_dir = Path(UPLOADS_DIR) / str(sub_id)
     upload_dir.mkdir(parents=True, exist_ok=True)
-    file_path = upload_dir / file.filename
+    safe_filename = file.filename or f"upload_{int(datetime.utcnow().timestamp())}{suffix}"
+    file_path = upload_dir / safe_filename
     with open(file_path, "wb") as f:
         content = await file.read()
         f.write(content)
@@ -182,7 +189,7 @@ async def upload_receipt(sub_id: int, file: UploadFile = File(...), db: Session 
         date=extracted.get("date"),
         category=extracted.get("category"),
         description=extracted.get("notes"),
-        receipt_filename=file.filename,
+        receipt_filename=safe_filename,
         receipt_path=str(file_path),
         verdict=verdict_enum,
         reasoning=verdict_result.get("reasoning"),
@@ -244,16 +251,6 @@ def delete_item(item_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Line item not found")
 
     sub_id = item.submission_id
-
-    audit = AuditLog(
-        line_item_id=item_id,
-        submission_id=sub_id,
-        action="delete",
-        old_value={"vendor": item.vendor, "amount": item.amount, "verdict": item.verdict.value},
-        new_value={},
-        actor="system",
-    )
-    db.add(audit)
     db.delete(item)
 
     # Recalculate submission total
