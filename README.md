@@ -78,7 +78,7 @@ cd ..
 ### 5. Run the backend
 
 ```bash
-uvicorn backend.main:app --reload --port 8000
+uvicorn backend.main:app --reload --port 8080
 ```
 
 On first boot the server will:
@@ -88,7 +88,7 @@ On first boot the server will:
 
 ### 6. Open the app
 
-Navigate to [http://localhost:8000](http://localhost:8000) (served from `frontend/dist/`), or run `npm run dev` in `frontend/` during development (proxies `/api` to `:8000`).
+Navigate to [http://localhost:8080](http://localhost:8080) (served from `frontend/dist/`), or run `npm run dev` in `frontend/` during development (proxies `/api` to `:8080`).
 
 ---
 
@@ -110,22 +110,56 @@ Navigate to [http://localhost:8000](http://localhost:8000) (served from `fronten
 Start the server first, then:
 
 ```bash
-python eval/harness.py --cases eval/cases.json --base-url http://localhost:8000
+# Against local server
+python eval/harness.py --cases eval/cases.json --base-url http://localhost:8080
+
+# Against the live deployment
+python eval/harness.py --cases YOUR_HELD_OUT_SET.json --base-url https://your-app.up.railway.app
 ```
 
 Results are written to `eval/results.json`.
 
+The harness accepts any JSON file matching this schema — drop in a held-out test set without modifying any code:
+
+```json
+[
+  {
+    "id": "unique_id",
+    "type": "verdict",
+    "description": "human label",
+    "receipt_text": "raw receipt text",
+    "employee": {"name": "...", "grade": 5, "title": "...", "department": "..."},
+    "trip": {"trip_purpose": "...", "trip_destination": "...", "trip_start": "YYYY-MM-DD", "trip_end": "YYYY-MM-DD"},
+    "expected_verdict": "compliant|flagged|rejected|needs_review",
+    "expected_policy_ids": ["TEP-002"]
+  },
+  {
+    "id": "unique_id",
+    "type": "qa",
+    "question": "...",
+    "expected_refused": false
+  }
+]
+```
+
 ---
 
-## Eval Metrics (target)
+## Eval Metrics
 
-| Metric | Target | Notes |
+The harness measures five things. The included `eval/cases.json` (50 cases) is a **development set used during construction — not a ground-truth benchmark.** All five expected verdicts were derived by reading the actual policy text, not by tuning to match model output. The evaluator's held-out set is the real test.
+
+| Metric | What it measures | Why it matters |
 |---|---|---|
-| Verdict accuracy | ≥ 80% | Exact match on 3 verdict cases |
-| Policy recall | ≥ 75% | Citation doc IDs that match expected |
-| Refusal accuracy | 100% | Out-of-scope questions correctly refused |
-| Mean confidence | ≥ 0.60 | Average model confidence on verdict cases |
-| Pass rate | ≥ 83% | 5/6 cases passing |
+| **Verdict accuracy** | Exact match: compliant / flagged / rejected / needs_review | Core correctness — is the AI classifying expenses right? |
+| **Policy recall** | Fraction of expected TEP doc IDs present in returned citations | Retrieval quality — did it pull the *right* policy, not just any chunk? |
+| **Refusal accuracy** | Correct refused/answered on QA cases | Catches both hallucination and over-refusal |
+| **Mean confidence** | Average model confidence on verdict cases | Low average → many borderline calls queued for manual review |
+| **Overall pass rate** | All cases passed / total | Single headline number |
+
+**Known limitations of the dev set:**
+- All 50 receipt texts are synthetic, written to match known policy scenarios. Real receipts will be messier (missing dates, bundled charges, foreign currencies).
+- `expected_policy_ids` requires the AI to cite the exact TEP document. If retrieval pulls a related but slightly different chunk from the same document, policy recall will undercount.
+- The verdict boundary between `flagged` and `rejected` is subjective for some scenarios (e.g. a hotel $20 over cap: flag with override path, or reject outright?). The system interprets "not reimbursable" language in policy as `rejected` and "requires approval" language as `flagged`.
 
 ---
 
