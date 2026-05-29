@@ -2,55 +2,196 @@
   {
     "id": "verdict_001",
     "type": "verdict",
-    "description": "Clean domestic flight should be compliant",
-    "receipt_text": "United Airlines\nDate: 2025-04-14\nFlight UA2341 IRV-DEN\nBase Fare: $287.00\nTaxes & Fees: $43.50\nTotal: $330.50",
-    "employee": {"name": "Test Employee", "grade": 5, "title": "Manager", "department": "Ops"},
+    "description": "Clean domestic economy flight — should be compliant",
+    "receipt_text": "United Airlines\nDate: 2025-04-14\nFlight UA2341 ORD-DEN (Economy)\nBase Fare: $287.00\nTaxes & Fees: $43.50\nTotal: $330.50",
+    "employee": {"name": "Test Manager", "grade": 5, "title": "Manager", "department": "Operations"},
     "trip": {"trip_purpose": "Client meeting", "trip_destination": "Denver, CO", "trip_start": "2025-04-14", "trip_end": "2025-04-16"},
     "expected_verdict": "compliant",
-    "expected_policy_ids": [],
-    "notes": "Standard domestic flight under typical limits"
+    "expected_policy_ids": ["POLICY2"],
+    "notes": "Economy domestic flight well under any threshold — TEP-005 §2.1"
   },
   {
     "id": "verdict_002",
     "type": "verdict",
-    "description": "Dinner over per-diem should be flagged",
-    "receipt_text": "Alinea Chicago\nDate: 2025-03-20\nDinner for 1\nFood & Beverage: $285.00\nGratuity: $57.00\nTotal: $342.00",
-    "employee": {"name": "Test Employee", "grade": 5, "title": "Analyst", "department": "Finance"},
+    "description": "Solo dinner over $75 cap — should be flagged",
+    "receipt_text": "Alinea Chicago\nDate: 2025-03-20\nDinner for 1\nFood: $220.00\nTax: $22.00\nGratuity (18%): $39.60\nTotal: $281.60",
+    "employee": {"name": "Test Analyst", "grade": 3, "title": "Specialist", "department": "Finance"},
     "trip": {"trip_purpose": "Internal training", "trip_destination": "Chicago, IL", "trip_start": "2025-03-19", "trip_end": "2025-03-21"},
     "expected_verdict": "flagged",
-    "expected_policy_ids": [],
-    "notes": "Single-person dinner at $342 is likely over meal cap"
+    "expected_policy_ids": ["POLICY1"],
+    "notes": "Chicago is Tier 2 — dinner cap is $75/person. $281.60 solo dinner far exceeds it. TEP-002 §2"
   },
   {
     "id": "verdict_003",
     "type": "verdict",
-    "description": "Solo alcohol should be rejected or flagged",
+    "description": "Solo alcohol — should be flagged or rejected",
     "receipt_text": "Franklin Barbecue Austin\nDate: 2025-05-10\nBrisket Plate: $22.00\nCraft Beer x3: $24.00\nTotal: $46.00",
-    "employee": {"name": "Test Employee", "grade": 4, "title": "Associate", "department": "Logistics"},
+    "employee": {"name": "Test Associate", "grade": 4, "title": "Senior Specialist", "department": "Logistics"},
     "trip": {"trip_purpose": "Regional ops review", "trip_destination": "Austin, TX", "trip_start": "2025-05-09", "trip_end": "2025-05-11"},
     "expected_verdict": "flagged",
-    "expected_policy_ids": [],
-    "notes": "Alcohol on solo travel is typically flagged"
+    "expected_policy_ids": ["POLICY1"],
+    "notes": "Alcohol on solo travel never reimbursable — TEP-003 §3.1. Food portion ($22) is under dinner cap and reimbursable."
   },
+  {
+    "id": "verdict_004",
+    "type": "verdict",
+    "description": "Hotel in NYC Tier 1 under $350 cap — should be compliant",
+    "receipt_text": "Marriott Midtown New York\nCheck-in: 2025-02-10  Check-out: 2025-02-12\nRoom Rate: $289.00/night x 2 nights\nOccupancy Tax: $55.00\nTotal: $633.00",
+    "employee": {"name": "Test Director", "grade": 7, "title": "Director", "department": "Sales"},
+    "trip": {"trip_purpose": "Client presentation", "trip_destination": "New York, NY", "trip_start": "2025-02-10", "trip_end": "2025-02-12"},
+    "expected_verdict": "compliant",
+    "expected_policy_ids": ["POLICY1"],
+    "notes": "NYC is Tier 1 cap $350/night. $289 base + $27.50 tax/night = $316.50/night — within cap. TEP-004 §3"
+  },
+  {
+    "id": "verdict_005",
+    "type": "verdict",
+    "description": "Hotel in NYC exceeding $350 Tier 1 cap — should be flagged",
+    "receipt_text": "Four Seasons New York\nCheck-in: 2025-02-10  Check-out: 2025-02-12\nRoom Rate: $520.00/night x 2 nights\nOccupancy Tax: $95.00\nTotal: $1135.00",
+    "employee": {"name": "Test Manager", "grade": 5, "title": "Manager", "department": "Sales"},
+    "trip": {"trip_purpose": "Client meeting", "trip_destination": "New York, NY", "trip_start": "2025-02-10", "trip_end": "2025-02-12"},
+    "expected_verdict": "flagged",
+    "expected_policy_ids": ["POLICY1"],
+    "notes": "NYC Tier 1 cap is $350/night. $520 base is well over cap. Requires manager approval + proof no lower rate available. TEP-004 §3, §6.1"
+  },
+  {
+    "id": "verdict_006",
+    "type": "verdict",
+    "description": "First class airfare — should be rejected",
+    "receipt_text": "Delta Air Lines\nDate: 2025-06-01\nFlight DL204 JFK-LAX (First Class)\nBase Fare: $2,850.00\nTaxes & Fees: $68.00\nTotal: $2,918.00",
+    "employee": {"name": "Test VP", "grade": 9, "title": "Vice President", "department": "Executive"},
+    "trip": {"trip_purpose": "Board meeting", "trip_destination": "Los Angeles, CA", "trip_start": "2025-06-01", "trip_end": "2025-06-03"},
+    "expected_verdict": "rejected",
+    "expected_policy_ids": ["POLICY2"],
+    "notes": "First class is never reimbursable regardless of grade or trip purpose. TEP-005 §2.4"
+  },
+  {
+    "id": "verdict_007",
+    "type": "verdict",
+    "description": "Uber Black when UberX was available — should be flagged",
+    "receipt_text": "Uber\nDate: 2025-03-15\nUber Black — O'Hare Airport to Marriott Downtown Chicago\nFare: $87.00\nTotal: $87.00",
+    "employee": {"name": "Test Manager", "grade": 5, "title": "Manager", "department": "Operations"},
+    "trip": {"trip_purpose": "Team offsite", "trip_destination": "Chicago, IL", "trip_start": "2025-03-15", "trip_end": "2025-03-17"},
+    "expected_verdict": "flagged",
+    "expected_policy_ids": ["POLICY2"],
+    "notes": "Premium rideshare categories (Uber Black) not reimbursable unless only option. TEP-006 §2.2"
+  },
+  {
+    "id": "verdict_008",
+    "type": "verdict",
+    "description": "Standard UberX airport transfer — should be compliant",
+    "receipt_text": "Uber\nDate: 2025-04-10\nUberX — Denver International Airport to Marriott Downtown\nFare: $34.00\nTotal: $34.00",
+    "employee": {"name": "Test Analyst", "grade": 3, "title": "Specialist", "department": "Finance"},
+    "trip": {"trip_purpose": "Client meeting", "trip_destination": "Denver, CO", "trip_start": "2025-04-10", "trip_end": "2025-04-12"},
+    "expected_verdict": "compliant",
+    "expected_policy_ids": ["POLICY2"],
+    "notes": "Standard UberX for airport transfer — fully reimbursable. TEP-006 §2.1"
+  },
+  {
+    "id": "verdict_009",
+    "type": "verdict",
+    "description": "Business class on domestic flight — should be rejected",
+    "receipt_text": "American Airlines\nDate: 2025-05-20\nFlight AA100 BOS-LAX (Business Class)\nBase Fare: $1,450.00\nTaxes: $42.00\nTotal: $1,492.00",
+    "employee": {"name": "Test Director", "grade": 7, "title": "Director", "department": "Sales"},
+    "trip": {"trip_purpose": "Sales conference", "trip_destination": "Los Angeles, CA", "trip_start": "2025-05-20", "trip_end": "2025-05-23"},
+    "expected_verdict": "rejected",
+    "expected_policy_ids": ["POLICY2"],
+    "notes": "Business class only permitted on international flights of 10+ hours with VP approval. Domestic business class is not reimbursable. TEP-005 §2.3"
+  },
+  {
+    "id": "verdict_010",
+    "type": "verdict",
+    "description": "Client dinner under $150/person cap — should be compliant",
+    "receipt_text": "Gibson's Bar & Steakhouse Chicago\nDate: 2025-04-22\nClient Entertainment Dinner\nAttendees: 2 Northwind employees + 2 external clients\nFood: $380.00\nTax: $34.20\nGratuity (18%): $68.40\nTotal: $482.60",
+    "employee": {"name": "Test Director", "grade": 7, "title": "Director", "department": "Sales"},
+    "trip": {"trip_purpose": "Client entertainment", "trip_destination": "Chicago, IL", "trip_start": "2025-04-22", "trip_end": "2025-04-22"},
+    "expected_verdict": "compliant",
+    "expected_policy_ids": ["POLICY1"],
+    "notes": "$482.60 / 4 attendees = $120.65/person. Under $150/person client entertainment cap. TEP-002 §4.1"
+  },
+
   {
     "id": "qa_001",
     "type": "qa",
-    "question": "What is the per diem limit for meals on domestic travel?",
+    "question": "What is the per-meal cap for dinner on domestic solo travel?",
     "expected_refused": false,
-    "notes": "Should answer from policy docs"
+    "notes": "TEP-002 §2: Dinner cap is $75/person. Should answer precisely from POLICY1."
   },
   {
     "id": "qa_002",
     "type": "qa",
     "question": "What is the current stock price of Northwind Logistics?",
     "expected_refused": true,
-    "notes": "Out-of-scope: not a policy question"
+    "notes": "Out of scope — not a policy topic."
   },
   {
     "id": "qa_003",
     "type": "qa",
     "question": "Is alcohol reimbursable for business travel?",
     "expected_refused": false,
-    "notes": "Should answer from alcohol policy"
+    "notes": "TEP-003 §2: Reimbursable ONLY for sanctioned client entertainment with external attendees + VP approval + max $50/person. Should answer from POLICY1."
+  },
+  {
+    "id": "qa_004",
+    "type": "qa",
+    "question": "What is the nightly hotel cap for New York?",
+    "expected_refused": false,
+    "notes": "TEP-004 §3: NYC is Tier 1 — $350/night. Should answer from POLICY1."
+  },
+  {
+    "id": "qa_005",
+    "type": "qa",
+    "question": "Can I fly business class on a long international flight?",
+    "expected_refused": false,
+    "notes": "TEP-005 §2.3: Business class permitted on 10+ hour international segments with VP approval. Should answer from POLICY2."
+  },
+  {
+    "id": "qa_006",
+    "type": "qa",
+    "question": "What is the IRS mileage reimbursement rate for 2025?",
+    "expected_refused": false,
+    "notes": "TEP-006 §4.1: $0.67 per mile. Should answer from POLICY2."
+  },
+  {
+    "id": "qa_007",
+    "type": "qa",
+    "question": "What approval is needed for international travel?",
+    "expected_refused": false,
+    "notes": "TEP-013 §2.1: VP (Grade 9) approval required for all international travel. Should answer from POLICY4."
+  },
+  {
+    "id": "qa_008",
+    "type": "qa",
+    "question": "How do I reset my password?",
+    "expected_refused": true,
+    "notes": "Out of scope — IT topic, not in any policy document."
+  },
+  {
+    "id": "qa_009",
+    "type": "qa",
+    "question": "What is the per-diem rate for a Tier 1 city like San Francisco?",
+    "expected_refused": false,
+    "notes": "TEP-008 §3: Tier 1 per-diem is $90/day. Should answer from POLICY2."
+  },
+  {
+    "id": "qa_010",
+    "type": "qa",
+    "question": "What is the company vacation policy?",
+    "expected_refused": true,
+    "notes": "Out of scope — HR/vacation policy not in any of the 8 documents."
+  },
+  {
+    "id": "qa_011",
+    "type": "qa",
+    "question": "What meals are covered by a Tier 2 per-diem and what is the daily rate?",
+    "expected_refused": false,
+    "notes": "TEP-008 §3, §5: Tier 2 = $70/day covering all 3 meals + incidentals (excludes alcohol). Should answer from POLICY2."
+  },
+  {
+    "id": "qa_012",
+    "type": "qa",
+    "question": "Can I use Uber Black for airport transfers?",
+    "expected_refused": false,
+    "notes": "TEP-006 §2.2: Premium categories not reimbursable unless only option. Should answer from POLICY2."
   }
 ]
