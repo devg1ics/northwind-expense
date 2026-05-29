@@ -13,24 +13,24 @@
   {
     "id": "verdict_002",
     "type": "verdict",
-    "description": "Solo dinner over $75 cap — should be flagged",
+    "description": "Solo dinner over $75 cap — should be rejected",
     "receipt_text": "Alinea Chicago\nDate: 2025-03-20\nDinner for 1\nFood: $220.00\nTax: $22.00\nGratuity (18%): $39.60\nTotal: $281.60",
     "employee": {"name": "Test Analyst", "grade": 3, "title": "Specialist", "department": "Finance"},
     "trip": {"trip_purpose": "Internal training", "trip_destination": "Chicago, IL", "trip_start": "2025-03-19", "trip_end": "2025-03-21"},
-    "expected_verdict": "flagged",
+    "expected_verdict": "rejected",
     "expected_policy_ids": ["POLICY1"],
-    "notes": "Chicago is Tier 2 — dinner cap is $75/person. $281.60 solo dinner far exceeds it. TEP-002 §2"
+    "notes": "Chicago is Tier 2 — dinner cap is $75/person. $281.60 solo dinner far exceeds — not reimbursable per TEP-002 §2.2"
   },
   {
     "id": "verdict_003",
     "type": "verdict",
-    "description": "Solo alcohol — should be flagged or rejected",
+    "description": "Solo alcohol — should be rejected",
     "receipt_text": "Franklin Barbecue Austin\nDate: 2025-05-10\nBrisket Plate: $22.00\nCraft Beer x3: $24.00\nTotal: $46.00",
     "employee": {"name": "Test Associate", "grade": 4, "title": "Senior Specialist", "department": "Logistics"},
     "trip": {"trip_purpose": "Regional ops review", "trip_destination": "Austin, TX", "trip_start": "2025-05-09", "trip_end": "2025-05-11"},
-    "expected_verdict": "flagged",
+    "expected_verdict": "rejected",
     "expected_policy_ids": ["POLICY1"],
-    "notes": "Alcohol on solo travel never reimbursable — TEP-003 §3.1. Food portion ($22) is under dinner cap and reimbursable."
+    "notes": "Alcohol on solo travel never reimbursable per TEP-003 §3.1 — rejected is correct"
   },
   {
     "id": "verdict_004",
@@ -46,13 +46,13 @@
   {
     "id": "verdict_005",
     "type": "verdict",
-    "description": "Hotel in NYC exceeding $350 Tier 1 cap — should be flagged",
+    "description": "Hotel in NYC exceeding $350 Tier 1 cap — should be rejected",
     "receipt_text": "Four Seasons New York\nCheck-in: 2025-02-10  Check-out: 2025-02-12\nRoom Rate: $520.00/night x 2 nights\nOccupancy Tax: $95.00\nTotal: $1135.00",
     "employee": {"name": "Test Manager", "grade": 5, "title": "Manager", "department": "Sales"},
     "trip": {"trip_purpose": "Client meeting", "trip_destination": "New York, NY", "trip_start": "2025-02-10", "trip_end": "2025-02-12"},
-    "expected_verdict": "flagged",
+    "expected_verdict": "rejected",
     "expected_policy_ids": ["POLICY1"],
-    "notes": "NYC Tier 1 cap is $350/night. $520 base is well over cap. Requires manager approval + proof no lower rate available. TEP-004 §3, §6.1"
+    "notes": "NYC Tier 1 cap is $350/night. $520 base far exceeds cap — not reimbursable per TEP-004 §3"
   },
   {
     "id": "verdict_006",
