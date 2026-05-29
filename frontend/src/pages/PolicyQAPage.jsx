@@ -29,7 +29,7 @@ function UserAvatar() {
 }
 
 /* Empty state illustration */
-function PolicyIllustration() {
+function PolicyIllustration({ onAsk }) {
   return (
     <div className="text-center py-10 px-6 max-w-md mx-auto">
       <svg viewBox="0 0 180 140" fill="none" className="w-44 h-36 mx-auto mb-5">
@@ -61,7 +61,7 @@ function PolicyIllustration() {
       <div className="space-y-2">
         <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Try asking</p>
         {SUGGESTED.map((q,i) => (
-          <button key={i} data-question={q}
+          <button key={i} onClick={() => onAsk(q)}
             className="w-full text-left text-sm px-4 py-2.5 card card-hover rounded-xl text-slate-600 hover:text-violet-700 transition-all duration-150 cursor-pointer flex items-center gap-2.5">
             <svg className="w-4 h-4 text-violet-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" />
@@ -129,7 +129,7 @@ export default function PolicyQAPage() {
       {/* Thread */}
       <div className="flex-1 overflow-y-auto bg-slate-50/60">
         {messages.length === 0 ? (
-          <PolicyIllustration />
+          <PolicyIllustration onAsk={send} />
         ) : (
           <div className="px-6 py-5 space-y-5 max-w-3xl mx-auto">
             {messages.map((msg,i) => (

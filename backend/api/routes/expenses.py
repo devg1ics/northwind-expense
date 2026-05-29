@@ -175,11 +175,36 @@ async def upload_receipt(sub_id: int, file: UploadFile = File(...), db: Session 
             "requires_approval": True,
         }
 
-    verdict_str = verdict_result.get("verdict", "needs_review")
-    try:
-        verdict_enum = VerdictType(verdict_str)
-    except ValueError:
-        verdict_enum = VerdictType.needs_review
+    # Duplicate detection — check existing items in this submission for same vendor+amount+date
+    new_vendor = (extracted.get("vendor") or "").strip().lower()
+    new_amount = extracted.get("amount_total")
+    new_date   = extracted.get("date")
+    is_duplicate = False
+    if new_vendor and new_amount:
+        for existing in sub.line_items:
+            same_vendor = (existing.vendor or "").strip().lower() == new_vendor
+            same_amount = existing.amount is not None and abs((existing.amount or 0) - new_amount) < 0.01
+            same_date   = (not new_date) or (existing.date == new_date)
+            if same_vendor and same_amount and same_date:
+                is_duplicate = True
+                break
+
+    if is_duplicate:
+        verdict_enum = VerdictType.flagged
+        verdict_result["verdict"] = "flagged"
+        verdict_result["reasoning"] = (
+            f"DUPLICATE RECEIPT DETECTED: A receipt from '{extracted.get('vendor')}' "
+            f"for ${new_amount:.2f} on {new_date or 'the same date'} already exists in this submission. "
+            "Please verify this is not a duplicate submission."
+        )
+        verdict_result["flags"] = list(set(verdict_result.get("flags", []) + ["duplicate"]))
+        verdict_result["confidence"] = 1.0
+    else:
+        verdict_str = verdict_result.get("verdict", "needs_review")
+        try:
+            verdict_enum = VerdictType(verdict_str)
+        except ValueError:
+            verdict_enum = VerdictType.needs_review
 
     item = LineItem(
         submission_id=sub_id,
