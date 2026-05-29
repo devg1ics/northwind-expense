@@ -82,7 +82,7 @@ def _rebuild_tfidf(store: Dict):
     np.save(_STORE_NPY, _tfidf_matrix)
     with open(_VOCAB_JSON, "w", encoding="utf-8") as f:
         json.dump({
-            "vocabulary_": _vectorizer.vocabulary_,
+            "vocabulary_": {k: int(v) for k, v in _vectorizer.vocabulary_.items()},
             "idf_": _vectorizer.idf_.tolist(),
         }, f)
 
