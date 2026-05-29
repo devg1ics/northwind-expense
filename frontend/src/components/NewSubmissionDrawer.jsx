@@ -7,7 +7,7 @@ export default function NewSubmissionDrawer({ onClose }) {
   const [employees,  setEmployees]  = useState([])
   const [selected,   setSelected]   = useState(null)
   const [showNewEmp, setShowNewEmp] = useState(false)
-  const [empForm,    setEmpForm]    = useState({ name:'', grade:5, title:'', department:'', manager_name:'' })
+  const [empForm,    setEmpForm]    = useState({ employee_id:'', name:'', grade:5, title:'', department:'', manager_name:'', home_base:'' })
   const [tripForm,   setTripForm]   = useState({ trip_purpose:'', trip_destination:'', trip_start:'', trip_end:'' })
   const [saving,     setSaving]     = useState(false)
   const [savingEmp,  setSavingEmp]  = useState(false)
@@ -22,7 +22,7 @@ export default function NewSubmissionDrawer({ onClose }) {
       setEmployees(prev => [...prev, emp])
       setSelected(emp)
       setShowNewEmp(false)
-      setEmpForm({ name:'', grade:5, title:'', department:'', manager_name:'' })
+      setEmpForm({ employee_id:'', name:'', grade:5, title:'', department:'', manager_name:'', home_base:'' })
     } catch(e) { alert('Failed: ' + (e.response?.data?.detail || e.message)) }
     finally { setSavingEmp(false) }
   }
@@ -95,8 +95,15 @@ export default function NewSubmissionDrawer({ onClose }) {
             {showNewEmp && (
               <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-3 animate-in">
                 <div className="grid grid-cols-2 gap-3">
-                  {[['name','Full Name','Jane Smith'],['title','Title','Senior Analyst'],['department','Department','Finance'],['manager_name','Manager','Manager name']].map(([k,l,p]) => (
-                    <div key={k} className={k === 'manager_name' ? 'col-span-2' : ''}>
+                  {[
+                    ['employee_id','Employee ID','NW-04821',''],
+                    ['name','Full Name','Jane Smith',''],
+                    ['title','Title','Operations Manager',''],
+                    ['department','Department','Logistics Ops',''],
+                    ['manager_name','Manager ID','NW-03012',''],
+                    ['home_base','Home Base','Irvine, CA','col-span-2'],
+                  ].map(([k,l,p,cls]) => (
+                    <div key={k} className={cls || ''}>
                       <label className="block text-xs font-medium text-slate-600 mb-1">{l}</label>
                       <input value={empForm[k]} onChange={e => setEmpForm(f=>({...f,[k]:e.target.value}))} placeholder={p} className="input text-sm" />
                     </div>
