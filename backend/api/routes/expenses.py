@@ -29,9 +29,6 @@ def list_employees(db: Session = Depends(get_db)):
 
 @router.post("/employees", response_model=EmployeeOut, status_code=201)
 def create_employee(data: EmployeeCreate, db: Session = Depends(get_db)):
-    existing = db.query(Employee).filter(Employee.email == data.email).first()
-    if existing:
-        raise HTTPException(status_code=409, detail="Employee with this email already exists")
     emp = Employee(**data.model_dump())
     db.add(emp)
     db.commit()

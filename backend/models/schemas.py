@@ -5,7 +5,7 @@ from backend.db.models import VerdictType, SubmissionStatus
 
 class EmployeeCreate(BaseModel):
     name: str
-    email: str
+    email: Optional[str] = None
     grade: int = 5
     title: Optional[str] = None
     department: Optional[str] = None
@@ -17,7 +17,7 @@ class EmployeeCreate(BaseModel):
 class EmployeeOut(BaseModel):
     id: int
     name: str
-    email: str
+    email: Optional[str]
     grade: int
     title: Optional[str]
     department: Optional[str]

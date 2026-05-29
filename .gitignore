@@ -36,6 +36,7 @@ chroma_db/
 
 # Session logs (local debug only)
 session.log
+SESSION_LOG.txt
 *.log
 
 # Eval output (local runs only)

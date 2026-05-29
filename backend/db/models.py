@@ -24,7 +24,7 @@ class Employee(Base):
     id = Column(Integer, primary_key=True)
     employee_id = Column(String, unique=True, nullable=True)
     name = Column(String, nullable=False)
-    email = Column(String, unique=True, nullable=False)
+    email = Column(String, unique=True, nullable=True)
     grade = Column(Integer, default=5)
     title = Column(String, nullable=True)
     department = Column(String, nullable=True)
