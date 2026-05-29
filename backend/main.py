@@ -64,7 +64,7 @@ def seed_employees():
             sub = Submission(
                 employee_id=emp.id,
                 trip_purpose=data.get("trip_purpose"),
-                trip_destination=data.get("home_base"),
+                trip_destination=data.get("trip_destination"),
                 trip_start=trip_start,
                 trip_end=trip_end,
             )
