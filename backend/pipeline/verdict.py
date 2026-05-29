@@ -151,9 +151,17 @@ def answer_policy_question(question: str) -> Dict[str, Any]:
     max_score = max(c["score"] for c in chunks)
 
     if max_score < 0.30:
+        nearby = [
+            {
+                "id": c["metadata"].get("document_id", "DOC"),
+                "title": c["metadata"].get("section", ""),
+                "text": c["text"][:300] + ("…" if len(c["text"]) > 300 else ""),
+            }
+            for c in chunks[:3]
+        ]
         return {
-            "answer": "I cannot find relevant policy information to answer this question. Please consult your HR or Finance team directly.",
-            "citations": [],
+            "answer": "This question appears to be outside the scope of Northwind's expense policy documents. The policies cover travel expenses, meals, lodging, ground transport, flights, and reimbursement procedures. Please consult your HR or Finance team for questions outside these topics.",
+            "citations": nearby,
             "confidence": max_score,
             "refused": True,
             "out_of_scope": True,
