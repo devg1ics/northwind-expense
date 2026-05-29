@@ -34,6 +34,13 @@ chroma_db/
 # Railway volume
 /data/
 
+# Session logs (local debug only)
+session.log
+*.log
+
+# Eval output (local runs only)
+eval/results.json
+
 # OS
 .DS_Store
 Thumbs.db
