@@ -101,7 +101,7 @@ async def lifespan(app: FastAPI):
     yield
     logger.info("Shutting down")
 
-app = FastAPI(title="Northwind Expense Review", lifespan=lifespan)
+app = FastAPI(title="ExpenseIQ", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,

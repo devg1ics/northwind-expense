@@ -22,7 +22,7 @@ export default function Sidebar({ onNewSubmission }) {
             <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full border-2 border-white" />
           </div>
           <div>
-            <div className="text-sm font-bold text-slate-900 leading-tight">Northwind</div>
+            <div className="text-sm font-bold text-slate-900 leading-tight">ExpenseIQ</div>
             <div className="text-xs text-slate-400 leading-tight">Expense Review</div>
           </div>
         </div>
@@ -79,7 +79,7 @@ export default function Sidebar({ onNewSubmission }) {
             NR
           </div>
           <div className="min-w-0">
-            <div className="text-xs font-semibold text-slate-700 truncate">Northwind Reviewer</div>
+            <div className="text-xs font-semibold text-slate-700 truncate">ExpenseIQ Reviewer</div>
             <div className="text-xs text-slate-400 truncate">devgoel10dg@gmail.com</div>
           </div>
         </div>

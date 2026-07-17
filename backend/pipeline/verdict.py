@@ -30,7 +30,7 @@ VERDICT_SCHEMA = """{
   "approval_type": "string or null"
 }"""
 
-QA_SYSTEM = """You are a policy assistant for Northwind Logistics. Answer questions ONLY using the provided policy chunks.
+QA_SYSTEM = """You are a policy assistant for ExpenseIQ. Answer questions ONLY using the provided policy chunks.
 If the answer cannot be found in the chunks, you MUST refuse with refused=true. Never fabricate policy content.
 Return ONLY valid JSON."""
 
@@ -160,7 +160,7 @@ def answer_policy_question(question: str) -> Dict[str, Any]:
             for c in chunks[:3]
         ]
         return {
-            "answer": "This question appears to be outside the scope of Northwind's expense policy documents. The policies cover travel expenses, meals, lodging, ground transport, flights, and reimbursement procedures. Please consult your HR or Finance team for questions outside these topics.",
+            "answer": "This question appears to be outside the scope of ExpenseIQ's expense policy documents. The policies cover travel expenses, meals, lodging, ground transport, flights, and reimbursement procedures. Please consult your HR or Finance team for questions outside these topics.",
             "citations": nearby,
             "confidence": max_score,
             "refused": True,
