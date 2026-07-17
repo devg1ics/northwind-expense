@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: expenseiq
+    runtime: python
+    buildCommand: pip install -r requirements.txt && cd frontend && npm install && npm run build
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    disk:
+      name: data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: DB_PATH
+        value: /data/northwind.db
+      - key: CHROMA_PATH
+        value: /data/chroma_db
+      - key: UPLOADS_DIR
+        value: /data/uploads
