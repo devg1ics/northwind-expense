@@ -1,8 +1,8 @@
-# Northwind Logistics — AI Expense Review System
+# ExpenseIQ — AI Expense Review System
 
 An end-to-end expense compliance platform: upload a receipt (PDF/image/text), get a structured verdict with policy citations in seconds. Built with FastAPI, React, SQLite, and Claude.
 
-**Live deployment:** https://northwind-expense-production-128d.up.railway.app/
+**Live deployment:** https://expenseiq-fyzz.onrender.com
 
 ---
 
@@ -353,7 +353,7 @@ Start the server first, then:
 python eval/harness.py --cases eval/cases.json --base-url http://localhost:8080
 
 # Against the live deployment
-python eval/harness.py --cases YOUR_HELD_OUT_SET.json --base-url https://northwind-production.up.railway.app
+python eval/harness.py --cases YOUR_HELD_OUT_SET.json --base-url https://expenseiq-fyzz.onrender.com
 ```
 
 Results are written to `eval/results.json`.
